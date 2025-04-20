@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package ddb;
+
+option go_package = "ddb.v1;ddbv1";
+
+message Document {
+    string id = 1;
+    map<string, string> payload = 2;
+}
+
+service Worker {
+    rpc Create(CreateRequest) returns (CreateResponse);
+
+    rpc Read(ReadRequest) returns (ReadResponse);
+    rpc ReadAll(ReadAllRequest) returns (ReadAllResponse);
+
+    rpc Update(UpdateRequest) returns (UpdateResponse);
+
+    rpc Delete(DeleteRequest) returns (DeleteResponse);
+}
+
+message CreateRequest {
+    string collection_id = 1;
+    map<string, string> payload = 2;
+}
+
+message CreateResponse {
+    int64 status = 1;
+    Document document = 2;
+}
+
+message ReadRequest {
+    string collection_id = 1;
+    string document_id = 2;
+}
+
+message ReadResponse {
+    int64 status = 1;
+    Document document = 3;
+}
+
+message ReadAllRequest {
+    string collection_id = 1;
+}
+
+message ReadAllResponse {
+    int64 status = 1;
+    repeated Document documents = 2;
+}
+
+message UpdateRequest {
+    string collection_id = 1;
+    string document_id = 2;
+    map<string, string> payload = 3;
+}
+
+message UpdateResponse {
+    int64 status = 1;
+    optional string error_msg = 2;
+}
+
+message DeleteRequest {
+    string collection_id = 1;
+    string document_id = 2;
+}
+
+message DeleteResponse {
+    int64 status = 1;
+}
