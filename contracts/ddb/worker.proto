@@ -57,7 +57,6 @@ message UpdateRequest {
 
 message UpdateResponse {
     int64 status = 1;
-    optional string error_msg = 2;
 }
 
 message DeleteRequest {
